@@ -17,14 +17,13 @@ from django.conf.urls import url, patterns
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from . import view
 
-urlpatterns = patterns('ourcase.view',
-                       url(r'^hello/$', 'hello'),
-                       )
 
-urlpatterns += patterns('',
-                        url(r'^admin/', admin.site.urls),
-                        )
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^hello/$', view.hello),
+]
 
 if settings.DEBUG and settings.STATIC_ROOT:
     urlpatterns += static(settings.STATIC_URL,
