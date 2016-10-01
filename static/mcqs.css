@@ -1,0 +1,31 @@
+.btn-group{
+    float: right;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#submit_button{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    float: left;
+}
+
+#source{
+    position: fixed;
+    bottom: 50px;
+    width: 33%;
+    text-align: center;
+}
+
+.radio label{
+    margin: 2px;
+}
+
+#r_1_div{
+    margin-top: 20px;
+}
+
+#r_2_div{
+    margin-top: 40px;
+}
+

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href='http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
+    <!-- jQuery library -->
+    <script src='http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js'></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src='http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+    <link type="text/css" rel="stylesheet" href={% load staticfiles %}{% static "mcq_home.css" %}/>
+    <script type="text/javascript" src={% load staticfiles %}{% static "mcq_home.js" %}></script>
+
+{% endblock %}
+
+{% block header %}
+    <title>Python MCQs</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6" id="r_1_div">
+                <div class="page-header">
+                    <h1>
+                        Python MCQs!
+                        <small>A place to test your python knowledge.</small>
+                    </h1>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <div class="row" id="r_2">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-1">
+                <a href="/mcq/1/">
+                    <button type="button" class="btn btn-default" id="mode_btn">
+                        Normal Mode
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <h2>
+                    Test your knowledge in normal mode.
+                </h2>
+                <p>
+                    &#9679 Including 689 different questions.<br>
+                    &#9679 Covering main areas of python must-know knowledge.<br>
+                    &#9679 Friendly to newcomers.<br>
+                </p>
+
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+        <div class="row" id="r_3">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-1">
+            <a href="/test_mcq/1/">
+                <button type="button" class="btn btn-default" id="mode_btn">
+                    Test Mode
+                </button></a>
+            </div>
+            <div class="col-md-3">
+                <h2>
+                    Test your knowledge in test mode.
+                </h2>
+                <p>
+                    &#9679 Automatically adjusting the difficulty based on your performance.<br>
+                </p>
+
+
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+{% endblock %}

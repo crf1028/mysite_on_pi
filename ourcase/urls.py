@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^hello/$', view.hello),
     url(r'^$', view.home),
+    url(r'^mcq_home/$',view.mcq_home),
+    url(r'^mcq/(\d{1,3})/$', view.mcqs),
+    url(r'^test_mcq/(\d{1,3})/$', view.test_mcqs),
 ]
 
 if settings.DEBUG and settings.STATIC_ROOT:

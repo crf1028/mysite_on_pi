@@ -1,0 +1,129 @@
+﻿{% extends "base.html" %}
+
+{% block css %}
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href='http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
+    <!-- jQuery library -->
+    <script src='http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js'></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src='http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+    <link type="text/css" rel="stylesheet" href={% load staticfiles %}{% static "mcqs.css" %}/>
+    <script type="text/javascript" src={% load staticfiles %}{% static "mcqs.js" %}></script>
+
+{% endblock %}
+
+{% block header %}
+    <title>Python MCQs</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6" id="r_1_div">
+                <div class="page-header">
+                    <h1>
+                        Python MCQs!
+                        <small>A place to test your python knowledge.</small>
+                    </h1>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4" id="r_2_div">
+                <p>
+                    {{ mcq.question }}
+                    {% if mcq.code %}
+                        <pre>{{ mcq.code }}</pre>
+                    {% endif %}
+                </p>
+                <div class="radio">
+                    <label><input type="radio" name="optradio" value="a">{{ mcq.c_a }}</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="optradio" value="b">{{ mcq.c_b }}</label>
+                </div>
+                {% if mcq.c_c %}
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" value="c">{{ mcq.c_c }}</label>
+                    </div>
+                {% endif %}
+                {% if mcq.c_d %}
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" value="d">{{ mcq.c_d }}</label>
+                    </div>
+                {% endif %}
+                {% if mcq.c_e %}
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" value="d">{{ mcq.c_e }}</label>
+                    </div>
+                {% endif %}
+                <var id="q_ans">{{ mcq.ans }}</var>
+                <button type="button" class="btn btn-primary" id="submit_button">
+                    Submit
+                </button>
+                <div class="btn-group">
+                    <a type="button" class="btn btn-default" href='/mcq/{{ rand_q }}/'>
+                        <span class="glyphicon glyphicon-random"></span> Random
+                    </a>
+                    <a type="button" class="btn btn-default" href='/mcq/{{ next_q }}/'>
+                        Next
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×
+                </button>
+                <h4>
+                    Correct!
+                </h4> The correct answer is
+            </div>
+            <div class="alert alert-dismissable alert-danger">
+
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    ×
+                </button>
+                <h4>
+                    Wrong!
+                </h4> The correct answer is
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <p id="source">
+                {% if next_q <= 613 %}
+                    Question source:
+                    <a href="https://www.amazon.com/Python-MCQ-Questions-Programming-Beginners-ebook/dp/B01A2DRPOS/ref=sr_1_2?ie=UTF8&qid=1468908485&sr=8-2&keywords=mcqs+python">Amazon
+                        Link</a>
+                {% else %}
+                    Question source: <a href="http://www.mypythonquiz.com/list.php">Page Link</a>
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+{% endblock %}
