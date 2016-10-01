@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^mcq_home/$',view.mcq_home),
     url(r'^mcq/(\d{1,3})/$', view.mcqs),
     url(r'^test_mcq/(\d{1,3})/$', view.test_mcqs),
+    url(r'^pdo/', view.pdo),
+    url(r'^json_r/', view.json_receive),
 ]
 
 if settings.DEBUG and settings.STATIC_ROOT:

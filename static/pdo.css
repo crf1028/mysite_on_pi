@@ -1,0 +1,36 @@
+h1{
+    text-align: center;
+}
+
+.content-col-left > *{
+    float: right;
+    margin: 20px;
+}
+
+.content-col-right > *{
+    float: left;
+    margin: 20px 5px;
+}
+
+.close{
+    margin-left: 5px;
+}
+
+#chartdiv{
+    margin-top: 20px;
+    position: fixed;
+
+}
+
+#accordion{
+    margin-top: 40px;
+    float: right;
+    width: 80%;
+    margin-right: 30px;
+}
+
+.list-group-item{
+    cursor: pointer;
+    cursor: hand;
+}
+
