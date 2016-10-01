@@ -23,6 +23,7 @@ from . import view
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^hello/$', view.hello),
+    url(r'^$', view.home),
 ]
 
 if settings.DEBUG and settings.STATIC_ROOT:
