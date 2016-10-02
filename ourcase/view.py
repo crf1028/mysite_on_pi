@@ -18,10 +18,6 @@ def home(request):
     return HttpResponse(html)
 
 
-def bing_pic_url(request):
-    return redirect(pickle.load(open(os.path.join(os.path.dirname(__file__)) + '/Data/bing_pic_url.p', 'rb')).encode('utf-8'))
-
-
 # python multiple choice
 def mcq_home(request):
     return render_to_response("mcqs_home.html")

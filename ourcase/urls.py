@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^hello/$', view.hello),
     url(r'^$', view.home),
     url(r'^home/$', view.home),
-    url(r'^home/bing_pic/$', view.bing_pic_url),
     url(r'^mcq_home/$',view.mcq_home),
     url(r'^mcq/(\d{1,3})/$', view.mcqs),
     url(r'^test_mcq/(\d{1,3})/$', view.test_mcqs),
