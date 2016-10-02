@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+    {% block html_tag%}<html lang="en">{% endblock %}
 <head>
-    <meta charset="UTF-8">
     {% block css %}
         <link type="text/css" rel="stylesheet" href={% load staticfiles %}{% static "base.css" %} />
     {% endblock %}

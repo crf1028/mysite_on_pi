@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404, JsonResponse
 from django.template.loader import get_template
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.template import loader
 import pickle, HTMLParser, os, random
 from settings import BASE_DIR
@@ -16,6 +16,10 @@ def home(request):
     t = get_template('home_page.html')
     html = t.render()
     return HttpResponse(html)
+
+
+def bing_pic_url(request):
+    return redirect(pickle.load(open(os.path.join(os.path.dirname(__file__)) + '/Data/bing_pic_url.p', 'rb')).encode('utf-8'))
 
 
 # python multiple choice
