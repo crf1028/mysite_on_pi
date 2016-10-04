@@ -185,7 +185,7 @@ def wechat_test(request):
             return HttpResponse("weixin  index")
     else:
         xml_str = smart_str(request.body)
-        request_xml = etree.fromstring(xml_str)
-        logging_python_quest(request_xml)
+        # request_xml = etree.fromstring(xml_str)
+        logging_python_quest(xml_str)
         return HttpResponse('success')
 
