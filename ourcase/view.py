@@ -155,7 +155,7 @@ def reset_index(df):
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
 from django.utils.encoding import smart_str
-from lxml import etree
+# from lxml import etree
 
 
 WEIXIN_TOKEN = '12578ssdga256a'
