@@ -149,3 +149,9 @@ def reset_index(df):
         df.insert(len(df.columns), 'new_index', new)
         df = df.set_index('new_index')
         return df
+
+
+# wechat server
+def wechat_test(request):
+    print request
+    return HttpResponse(status=200)
