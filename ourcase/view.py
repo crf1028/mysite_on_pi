@@ -158,6 +158,12 @@ import hashlib
 WEIXIN_TOKEN = '12578ssdga256a'
 
 
+def logging_python_quest(msg):
+    import datetime
+    with open('/home/rc/PySites/ourcase/Data/python_quest_log.txt', 'a') as pql:
+        pql.write(str(datetime.datetime.now().date())+'\t'+msg+'\n')
+
+
 @csrf_exempt
 def wechat_test(request):
     if request.method == "GET":
@@ -175,4 +181,6 @@ def wechat_test(request):
         else:
             return HttpResponse("weixin  index")
     else:
+        logging_python_quest(str(request.POST.values()))
         return HttpResponse('success')
+
