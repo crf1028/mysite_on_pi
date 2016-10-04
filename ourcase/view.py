@@ -153,7 +153,6 @@ def reset_index(df):
 
 # wechat server
 from django.views.decorators.csrf import csrf_exempt
-from logger import logging_python_quest
 import hashlib
 
 WEIXIN_TOKEN = '12578ssdga256a'
@@ -176,5 +175,4 @@ def wechat_test(request):
         else:
             return HttpResponse("weixin  index")
     else:
-        logging_python_quest(str(request.POST.values()))
         return HttpResponse('success')
