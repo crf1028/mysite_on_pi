@@ -149,3 +149,14 @@ def reset_index(df):
         df.insert(len(df.columns), 'new_index', new)
         df = df.set_index('new_index')
         return df
+
+
+# wechat server
+from django.views.decorators.csrf import csrf_exempt
+from logger import logging_python_quest
+
+
+@csrf_exempt
+def wechat_test(request):
+    logging_python_quest(str(request.POST.values()))
+    return HttpResponse('success')

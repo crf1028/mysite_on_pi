@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^test_mcq/(\d{1,3})/$', view.test_mcqs),
     url(r'^pdo/', view.pdo),
     url(r'^json_r/', view.json_receive),
+    url(r'^wechat/test/$', view.wechat_test),
 ]
 
 if settings.DEBUG and settings.STATIC_ROOT:
