@@ -153,7 +153,7 @@ def reset_index(df):
 
 # wechat server
 from django.views.decorators.csrf import csrf_exempt
-import hashlib, re
+import hashlib, re, time
 from django.utils.encoding import smart_str
 
 
@@ -185,6 +185,15 @@ def wechat_test(request):
     else:
         xml_str = smart_str(request.body)
         logging_python_quest(xml_str)
-        logging_python_quest(type(xml_str))
-        return HttpResponse('success')
+        if re.findall(r'(<MsgType><!\[CDATA\[)(.*)(]]></MsgType>)', xml_str)[0][1] == 'text':
+            return HttpResponse(wechat_process_text(xml_str))
+        else:
+            return HttpResponse('success')
+
+
+def wechat_process_text(text):
+    toUser = re.findall(r'(<FromUserName><!\[CDATA\[)(.*)(]]></FromUserName>)', text)[0][1]
+    fromUser = re.findall(r'(<ToUserName><!\[CDATA\[)(.*)(]]></ToUserName>)', text)[0][1]
+    CreateTime = str(int(time.time()))
+    return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[msg get]]></Content></xml>"
 
