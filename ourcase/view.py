@@ -155,7 +155,7 @@ def reset_index(df):
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
 from django.utils.encoding import smart_str
-# from lxml import etree
+from lxml import etree
 
 
 WEIXIN_TOKEN = '12578ssdga256a'
@@ -185,7 +185,7 @@ def wechat_test(request):
             return HttpResponse("weixin  index")
     else:
         xml_str = smart_str(request.body)
-        # request_xml = etree.fromstring(xml_str)
-        logging_python_quest(xml_str)
+        request_xml = etree.fromstring(xml_str)
+        logging_python_quest(request_xml)
         return HttpResponse('success')
 
