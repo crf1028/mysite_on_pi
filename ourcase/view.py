@@ -153,7 +153,7 @@ def reset_index(df):
 
 # wechat server
 from django.views.decorators.csrf import csrf_exempt
-import hashlib, re, time
+import hashlib, re, time, json, os
 from django.utils.encoding import smart_str
 
 
@@ -191,9 +191,17 @@ def wechat_test(request):
             return HttpResponse('success')
 
 
-def wechat_process_text(text):
-    toUser = re.findall(r'(<FromUserName><!\[CDATA\[)(.*)(]]></FromUserName>)', text)[0][1]
-    fromUser = re.findall(r'(<ToUserName><!\[CDATA\[)(.*)(]]></ToUserName>)', text)[0][1]
+def wechat_process_text(text_received):
+    toUser = re.findall(r'(<FromUserName><!\[CDATA\[)(.*)(]]></FromUserName>)', text_received)[0][1]
+    fromUser = re.findall(r'(<ToUserName><!\[CDATA\[)(.*)(]]></ToUserName>)', text_received)[0][1]
     CreateTime = str(int(time.time()))
-    return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[msg get]]></Content></xml>"
-
+    requested_content = re.findall(r'(<Content><!\[CDATA\[)(.*)(]]></Content>)', text_received)[0][1]
+    if requested_content.isalpha():
+        requested_content = requested_content.lower()
+    if requested_content == 'smm':
+        with open(os.path.join(os.path.dirname(__file__)) + '/Data/smm_price_daily', 'r') as k:
+            smm_price = json.load(k).values()[0][1]
+        msg = str(smm_price)
+    else:
+        msg = "msg get"
+    return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content></xml>"
