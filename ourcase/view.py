@@ -153,7 +153,7 @@ def reset_index(df):
 
 # wechat server
 from django.views.decorators.csrf import csrf_exempt
-import hashlib, re, time, json, os
+import hashlib, re, time, json
 from django.utils.encoding import smart_str
 
 
@@ -199,7 +199,7 @@ def wechat_process_text(text_received):
     if requested_content.isalpha():
         requested_content = requested_content.lower()
     if requested_content == 'smm':
-        with open(os.path.join(os.path.dirname(__file__)) + '/Data/smm_price_daily', 'r') as k:
+        with open('/home/rc/PySites/ourcase/Data/smm_price_daily', 'r') as k:
             smm_price = json.load(k).values()[0][1]
         msg = str(smm_price)
     else:
