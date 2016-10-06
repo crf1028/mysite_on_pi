@@ -184,7 +184,7 @@ def wechat_test(request):
             return HttpResponse("weixin  index")
     else:
         xml_str = smart_str(request.body)
-        logging_python_quest(xml_str)
+        logging_python_quest(xml_str)   # delete in the future
         if re.findall(r'(<MsgType><!\[CDATA\[)(.*)(]]></MsgType>)', xml_str)[0][1] == 'text':
             return HttpResponse(wechat_process_text(xml_str))
         else:
@@ -195,7 +195,7 @@ def wechat_process_text(text_received):
     toUser = re.findall(r'(<FromUserName><!\[CDATA\[)(.*)(]]></FromUserName>)', text_received)[0][1]
     fromUser = re.findall(r'(<ToUserName><!\[CDATA\[)(.*)(]]></ToUserName>)', text_received)[0][1]
     CreateTime = str(int(time.time()))
-    requested_content = re.findall(r'(<Content><!\[CDATA\[)(.*)(]]></Content>)', text_received)[0][1]
+    requested_content = re.findall(r'(<Content><!\[CDATA\[)(.*)(]]></Content>)', text_received)[0][1].strip()
     if requested_content.isalpha():
         requested_content = requested_content.lower()
     if requested_content == 'smm':
