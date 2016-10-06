@@ -3,7 +3,7 @@ from django.template.loader import get_template
 from django.shortcuts import render, render_to_response, redirect
 from django.template import loader
 import pickle, HTMLParser, os, random
-from settings import BASE_DIR
+from settings import BASE_DIR, BASE_ROOT, SITE_ROOT, SCRIPT_ROOT, DATA_DIR, STATIC_DIR, DOWNLOAD_DIR
 import pandas
 
 
