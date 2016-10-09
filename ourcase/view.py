@@ -205,3 +205,8 @@ def wechat_process_text(text_received):
     else:
         msg = "msg get"
     return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content></xml>"
+
+
+# wechat ow hightlights
+def wechat_owhl(requests):
+    return HttpResponse(get_template('ow_hl_base.html').render())

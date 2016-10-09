@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^pdo/', view.pdo),
     url(r'^json_r/', view.json_receive),
     url(r'^wechat/test/$', view.wechat_test),
+    url(r'^wechat/owhl/$', view.wechat_owhl),
 ]
 
 if settings.DEBUG and settings.STATIC_ROOT:
