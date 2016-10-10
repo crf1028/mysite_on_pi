@@ -241,7 +241,15 @@ def get_highlight(rq_text):
             text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n\n'
         return text2r
     elif rq_text == 'hl -ad':
-        return GfycatUrl(random.choice(d.values())[1].encode('utf-8'))
+        return GfycatUrl(random.choice(d.values())[1].encode('utf-8')).get_thumb_v()
+    elif rq_text == 'hl -c':
+        for item in d.values():
+            text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_c() + '\n\n'
+        return text2r
+    elif rq_text == 'hl -pc':
+        for item in d.values():
+            text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_giant_v() + '\n\n'
+        return text2r
     else:
         return 'Unknown Command'
 
