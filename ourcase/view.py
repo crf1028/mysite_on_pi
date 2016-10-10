@@ -207,6 +207,8 @@ def wechat_test(request):
     else:
         xml_str = smart_str(request.body)
         logging_python_quest(xml_str)   # delete in the future
+        if '\n' in xml_str:
+            logging_python_quest('new line found')
         if re.findall(r'(<MsgType><!\[CDATA\[)(.*)(]]></MsgType>)', xml_str)[0][1] == 'text':
             return HttpResponse(wechat_process_text(xml_str))
         else:
