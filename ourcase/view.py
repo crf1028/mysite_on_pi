@@ -236,7 +236,7 @@ def get_highlight():
     d = json.load(p)
     text2r = ''
     for item in d.values():
-        text2r += item[0] + " " + GfycatUrl(item[1].encode('utf-8')).get_giant_v() + '\n'
+        text2r += item[0] + "\n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n'
     return text2r
 
 
