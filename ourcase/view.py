@@ -160,6 +160,28 @@ from django.utils.encoding import smart_str
 WEIXIN_TOKEN = '12578ssdga256a'
 
 
+class GfycatUrl(str):
+    """get the download url by using gfycat id as input"""
+    def __init__(self, gfycat_id):
+        super(GfycatUrl, self).__init__(gfycat_id)
+        if type(gfycat_id) is str:
+            self.data = gfycat_id
+        else:
+            raise TypeError
+
+    def get_thumb_v(self):
+        return "https://thumbs.gfycat.com/"+self.data+"-mobile.mp4"
+
+    def get_thumb_c(self):
+        return "https://thumbs.gfycat.com/"+self.data+"-mobile.jpg"
+
+    def get_giant_v(self):
+        return "https://giant.gfycat.com/"+self.data+".mp4"
+
+    def get_giant_c(self):
+        return "https://giant.gfycat.com/" + self.data + ".jpg"
+
+
 def logging_python_quest(msg):
     import datetime
     with open('/home/rc/PySites/ourcase/Data/python_quest_log.txt', 'a') as pql:
@@ -202,9 +224,20 @@ def wechat_process_text(text_received):
         with open('/home/rc/PySites/ourcase/Data/smm_price_daily', 'r') as k:
             smm_price = json.load(k).values()[0][1]
         msg = str(smm_price)
+    elif requested_content == 'hl':
+        msg = get_highlight()
     else:
         msg = "msg get"
     return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content></xml>"
+
+
+def get_highlight():
+    p = open(DATA_DIR+"gfycat_hl",'r')
+    d = json.load(p)
+    text2r = ''
+    for item in d.values():
+        text2r+=item[0]+GfycatUrl(item[1]).get_giant_v()
+    return text2r
 
 
 # wechat ow hightlights
