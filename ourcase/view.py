@@ -153,7 +153,7 @@ def reset_index(df):
 
 # wechat server
 from django.views.decorators.csrf import csrf_exempt
-import hashlib, re, time, json
+import hashlib, re, time, json, random
 from django.utils.encoding import smart_str
 
 
@@ -217,27 +217,33 @@ def wechat_process_text(text_received):
     toUser = re.findall(r'(<FromUserName><!\[CDATA\[)(.*)(]]></FromUserName>)', text_received)[0][1]
     fromUser = re.findall(r'(<ToUserName><!\[CDATA\[)(.*)(]]></ToUserName>)', text_received)[0][1]
     CreateTime = str(int(time.time()))
-    requested_content = re.findall(r'(<Content><!\[CDATA\[)(.*)(]]></Content>)', text_received)[0][1].strip()
+    requested_content = re.findall(r'(<Content><!\[CDATA\[)(.*)(]]></Content>)', text_received)[0][1]
+    requested_content = requested_content.strip()
     if requested_content.isalpha():
         requested_content = requested_content.lower()
     if requested_content == 'smm':
         with open('/home/rc/PySites/ourcase/Data/smm_price_daily', 'r') as k:
             smm_price = json.load(k).values()[0][1]
         msg = str(smm_price)
-    elif requested_content == 'hl':
-        msg = get_highlight()
+    elif requested_content.startswith('hl'):
+        msg = get_highlight(requested_content)
     else:
         msg = "msg get"
     return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content></xml>"
 
 
-def get_highlight():
+def get_highlight(rq_text):
     p = open(DATA_DIR+"gfycat_hl",'r')
     d = json.load(p)
     text2r = ''
-    for item in d.values():
-        text2r += item[0] + "\n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n'
-    return text2r
+    if rq_text == 'hl':
+        for item in d.values():
+            text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n\n'
+        return text2r
+    elif rq_text == 'hl -ad':
+        return GfycatUrl(random.choice(d.values())[1].encode('utf-8'))
+    else:
+        return 'Unknown Command'
 
 
 # wechat ow hightlights
