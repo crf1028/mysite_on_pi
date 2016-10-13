@@ -227,7 +227,7 @@ def wechat_process_text(text_received):
         with open('/home/rc/PySites/ourcase/Data/smm_price_daily', 'r') as k:
             smm_price = json.load(k).values()[0][1]
         msg = str(smm_price)
-    elif requested_content.startswith('hl'):
+    elif requested_content.startswith('hl') or requested_content.startswith('fa'):
         msg = get_highlight(requested_content)
     else:
         msg = "msg get"
