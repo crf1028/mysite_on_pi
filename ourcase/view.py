@@ -235,25 +235,31 @@ def wechat_process_text(text_received):
 
 
 def get_highlight(rq_text):
-    p = open(DATA_DIR+"gfycat_hl",'r')
-    d = json.load(p)
     text2r = ''
-    if rq_text == 'hl':
+    if rq_text.startswith('hl'):
+        p = open(DATA_DIR + "gfycat_hl", 'r')
+        d = json.load(p)
+        if rq_text == 'hl':
+            for item in d.values():
+                text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n\n'
+            return text2r
+        elif rq_text == 'hl -ad':
+            return GfycatUrl(random.choice(d.values())[1].encode('utf-8')).get_thumb_v()
+        elif rq_text == 'hl -c':
+            for item in d.values():
+                text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_c() + '\n\n'
+            return text2r
+        elif rq_text == 'hl -pc':
+            for item in d.values():
+                text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_giant_v() + '\n\n'
+            return text2r
+    elif rq_text == 'fa':
+        p = open(DATA_DIR + "gfycat_fa", 'r')
+        d = json.load(p)
         for item in d.values():
             text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n\n'
         return text2r
-    elif rq_text == 'hl -ad':
-        return GfycatUrl(random.choice(d.values())[1].encode('utf-8')).get_thumb_v()
-    elif rq_text == 'hl -c':
-        for item in d.values():
-            text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_c() + '\n\n'
-        return text2r
-    elif rq_text == 'hl -pc':
-        for item in d.values():
-            text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_giant_v() + '\n\n'
-        return text2r
-    else:
-        return 'Unknown Command'
+    return 'Unknown Command'
 
 
 # wechat ow hightlights
