@@ -257,7 +257,7 @@ def get_highlight(rq_text):
         p = open(DATA_DIR + "gfycat_fa", 'r')
         d = json.load(p)
         for item in d.values():
-            text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n\n'
+            text2r += item[0] + " \n" + item[1].encode('utf-8') + '\n\n'
         return text2r
     return 'Unknown Command'
 
