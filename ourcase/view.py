@@ -1,3 +1,6 @@
+#coding:utf-8
+
+
 from django.http import HttpResponse, Http404, JsonResponse
 from django.template.loader import get_template
 from django.shortcuts import render, render_to_response, redirect
@@ -207,10 +210,10 @@ def wechat_test(request):
     else:
         xml_str = smart_str(request.body)
         logging_python_quest(xml_str)   # delete in the future
-        if 'hl\n' in xml_str:
-            logging_python_quest('new line found')
         if re.findall(r'(<MsgType><!\[CDATA\[)(.*)(]]></MsgType>)', xml_str)[0][1] == 'text':
             return HttpResponse(wechat_process_text(xml_str))
+        elif re.findall(r'(<MsgType><!\[CDATA\[)(.*)(]]></MsgType>)', xml_str)[0][1] == 'event':
+            return HttpResponse(wechat_process_event(xml_str))
         else:
             return HttpResponse('success')
 
@@ -232,6 +235,16 @@ def wechat_process_text(text_received):
     else:
         msg = "msg get"
     return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content></xml>"
+
+
+def wechat_process_event(text_received):
+    toUser = re.findall(r'(<FromUserName><!\[CDATA\[)(.*)(]]></FromUserName>)', text_received)[0][1]
+    fromUser = re.findall(r'(<ToUserName><!\[CDATA\[)(.*)(]]></ToUserName>)', text_received)[0][1]
+    CreateTime = str(int(time.time()))
+    requested_content = re.findall(r'(<Event><!\[CDATA\[)(.*)(]]></Event>)', text_received)[0][1]
+    if requested_content == "subscribe":
+        msg = u'感谢关注，为了更好的画质体验，请先阅读使用说明'
+        return "<xml><ToUserName><![CDATA[" + toUser + "]]></ToUserName><FromUserName><![CDATA[" + fromUser + "]]></FromUserName><CreateTime>" + CreateTime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content></xml>"
 
 
 def get_highlight(rq_text):
