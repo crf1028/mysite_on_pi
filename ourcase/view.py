@@ -268,9 +268,8 @@ def get_highlight(rq_text):
                 return GfycatUrl(chosen_video).get_thumb_v()
         elif rq_text == 'hl -c':
             for item in d.values():
-                if item[1].encode('utf-8').starstwith('//'):
-                    continue
-                text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_c() + '\n\n'
+                if not item[1].encode('utf-8').starstwith('//'):
+                    text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_c() + '\n\n'
             return text2r
         elif rq_text == 'hl -pc':
             for item in d.values():
