@@ -254,17 +254,31 @@ def get_highlight(rq_text):
         d = json.load(p)
         if rq_text == 'hl':
             for item in d.values():
-                text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_v() + '\n\n'
+                if item[1].encode('utf-8').startwith('//'):
+                    video_url = "http:"+item[1].encode('utf-8')
+                else:
+                    video_url = GfycatUrl(item[1].encode('utf-8')).get_thumb_v()
+                text2r += item[0] + " \n" + video_url + '\n\n'
             return text2r
         elif rq_text == 'hl -ad':
-            return GfycatUrl(random.choice(d.values())[1].encode('utf-8')).get_thumb_v()
+            chosen_video = random.choice(d.values())[1].encode('utf-8')
+            if chosen_video.startwith('//'):
+                return "http:" + chosen_video
+            else:
+                return GfycatUrl(chosen_video).get_thumb_v()
         elif rq_text == 'hl -c':
             for item in d.values():
+                if item[1].encode('utf-8').startwith('//'):
+                    continue
                 text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_thumb_c() + '\n\n'
             return text2r
         elif rq_text == 'hl -pc':
             for item in d.values():
-                text2r += item[0] + " \n" + GfycatUrl(item[1].encode('utf-8')).get_giant_v() + '\n\n'
+                if item[1].encode('utf-8').startwith('//'):
+                    video_url = "http:" + item[1].encode('utf-8')
+                else:
+                    video_url = GfycatUrl(item[1].encode('utf-8')).get_giant_v()
+                text2r += item[0] + " \n" + video_url + '\n\n'
             return text2r
     elif rq_text == 'fa':
         p = open(DATA_DIR + "gfycat_fa", 'r')
